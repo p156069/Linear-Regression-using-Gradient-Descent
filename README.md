@@ -7,6 +7,11 @@ Required Libraries:
  
  [#] Run this code using Jupyter Notebook
  
- ![alt text](https://imgur.com/6Z7hKVP)
+ 
+ # Output:
+ <p align="center">
+  <img src="https://imgur.com/6Z7hKVP" width="350"/>
+</p>
+
  
  

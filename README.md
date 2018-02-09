@@ -10,7 +10,7 @@ Required Libraries:
  
  # Output:
  <p align="center">
-  <img src="https://i.imgur.com/6Z7hKVP.png" height="600" width="900"/>
+  <img src="https://i.imgur.com/QSASddU.png" height="600" width="900"/>
 </p>
 
  

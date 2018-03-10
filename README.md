@@ -2,7 +2,7 @@
 Linear-Regression | A simple python linear regression using Gradient Descent implementation
 
 Required Libraries:
- • Mumpy
+ • Numpy
  • Matplotlib
  
  [#] Run this code using Jupyter Notebook

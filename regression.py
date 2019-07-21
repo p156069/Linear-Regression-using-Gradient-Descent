@@ -1,31 +1,47 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 16 21:45:06 2019
-@author: Mictofile
-"""
 
-import numpy as np
+from numpy import *
 
-def gradient_descent(x, y):
-    
-    theta0_curr = 0    
-    theta1_curr = 0
-    
-    n = len(x)
-    epochs = 10000
-    learning_rate = 0.01
-    
-    for i in range(epochs):
-        
-        y_predicted = theta0_curr + theta1_curr * x 
-        loss = (1/n) * sum((y-y_predicted)**2)
-        theta1_derivative = -(2/n) * sum(x * (y - y_predicted))
-        theta0_derivative = -(2/n) * sum(y - y_predicted)  
-        theta1_curr = theta1_curr - learning_rate * theta1_derivative
-        theta0_curr = theta0_curr - learning_rate * theta0_derivative
-        print ("theta1 {}, theta0 {}, loss {} iteration {}".format(theta1_curr,theta0_curr,loss, i))
-    
-X = np.array([1, 2, 3, 4, 5])
-Y = np.array([5, 7, 9, 11, 13])
+#Simple Linear Regression using Single Feature
+# y = mx + b
+# m is slope, b is y-intercept
+def compute_error(b, m, points):
+    totalError = 0
+    for i in range(0, len(points)):
+        x = points[i, 0]
+        y = points[i, 1]
+        totalError += (y - (m * x + b)) ** 2
+    return totalError / float(len(points))
 
-gradient_descent(X, Y)
+def step_gradient(b_current, m_current, points, learningRate):
+    b_gradient = 0
+    m_gradient = 0
+    N = float(len(points))
+    for i in range(0, len(points)):
+        x = points[i, 0]
+        y = points[i, 1]
+        b_gradient += -(2/N) * (y - ((m_current * x) + b_current))
+        m_gradient += -(2/N) * x * (y - ((m_current * x) + b_current))
+    new_b = b_current - (learningRate * b_gradient)
+    new_m = m_current - (learningRate * m_gradient)
+    return [new_b, new_m]
+
+def startGD(points, starting_b, starting_m, learning_rate, num_iterations):
+    b = starting_b
+    m = starting_m
+    for i in range(num_iterations):
+        b, m = step_gradient(b, m, array(points), learning_rate)
+    return [b, m]
+
+def run():
+    points = genfromtxt("data.csv", delimiter=",")
+    learning_rate = 0.0001
+    initial_b = 0 # initial y-intercept guess
+    initial_m = 0 # initial slope guess
+    num_iterations = 1000
+    print "Iniating gradient descent at b = {0}, m = {1}, error = {2}".format(initial_b, initial_m, compute_error(initial_b, initial_m, points))
+    print "Running..."
+    [b, m] = startGD(points, initial_b, initial_m, learning_rate, num_iterations)
+    print "After {0} iterations b = {1}, m = {2}, error = {3}".format(num_iterations, b, m, compute_error(b, m, points))
+
+if __name__ == '__main__':
+    run()
